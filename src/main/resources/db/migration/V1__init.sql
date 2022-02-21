@@ -1,3 +1,24 @@
+CREATE TABLE USERS(
+    id                      bigserial primary key,
+    username                varchar(50) not null,
+    password                varchar(100) not null,
+    email                   varchar (50) unique
+);
+
+CREATE TABLE ROLES(
+    id                      serial primary key,
+    name                    varchar(100) not null
+);
+
+CREATE TABLE USERS_ROLES(
+    user_id                 bigint not null,
+    roles_id                int not null,
+    primary key (user_id, roles_id),
+    foreign key (user_id) references users (id),
+    foreign key (roles_id) references roles(id)
+);
+
+
 create table products (
     id                      bigserial primary key,
     title                   varchar(255),
@@ -5,6 +26,16 @@ create table products (
     created_at              timestamp default current_timestamp,
     updated_at              timestamp default current_timestamp
 );
+
+INSERT INTO ROLES (name) VALUES
+('ROLE_USER'), ('ROLE_ADMIN'), ('MANAGER');
+
+INSERT INTO USERS(username, password, email) VALUES
+('user', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', 'user@gmail.com');
+
+INSERT INTO USERS_ROLES (user_id, roles_id) VALUES
+(1, 1), (1, 2);
+
 
 insert into products (title, price)
 values

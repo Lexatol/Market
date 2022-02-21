@@ -10,6 +10,7 @@ import ru.geekbrains.market.services.ProductService;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Component
@@ -37,6 +38,33 @@ public class Cart {
         OrderItem orderItem = new OrderItem(p);
         items.add(orderItem);
         recalculate();
+    }
+
+    public void decCart(Long id) {
+        Iterator<OrderItem> iter = items.iterator();
+        while(iter.hasNext()) {
+            OrderItem o = iter.next();
+            if (o.getProduct().getId().equals(id)) {
+                o.decrementQuantity();
+                if (o.getQuantity() == 0) {
+                    iter.remove();
+                }
+                recalculate();
+                return;
+            }
+        }
+    }
+
+    public void removeCart(Long id) {
+        Iterator<OrderItem> iter = items.iterator();
+        while(iter.hasNext()) {
+            OrderItem o = iter.next();
+            if (o.getProduct().getId().equals(id)) {
+                iter.remove();
+                recalculate();
+                return;
+            }
+        }
     }
 
     public void clear() {

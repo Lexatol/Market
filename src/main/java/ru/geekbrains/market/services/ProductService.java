@@ -6,7 +6,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import ru.geekbrains.market.dto.ProductDto;
-import ru.geekbrains.market.exceptions.ResourceNotFoundException;
 import ru.geekbrains.market.model.Product;
 import ru.geekbrains.market.repositories.ProductRepository;
 
