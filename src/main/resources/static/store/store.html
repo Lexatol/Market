@@ -1,4 +1,5 @@
 <div>
+    <h1>Happy Market</h1>
 
     <h3>Фильтр</h3>
     <form novalidate ng-submit="fillTable()">
@@ -28,7 +29,6 @@
             <td>Название</td>
             <td>Цена</td>
             <td></td>
-            <td></td>
         </tr>
         </thead>
         <tbody>
@@ -37,9 +37,6 @@
             <td>{{p.price}}</td>
             <td>
                 <button class="btn btn-primary" ng-click="addToCart(p.id)">Добавить в корзину</button>
-            </td>
-            <td>
-                <button class="btn btn-danger" ng-click="deleteProductById(p.id)">Удалить товар</button>
             </td>
         </tr>
         </tbody>
@@ -60,7 +57,4 @@
             </li>
         </ul>
     </nav>
-
 </div>
-</body>
-</html>

@@ -1,46 +1,44 @@
 angular.module('app').controller('cartController', function ($scope, $http) {
-    const contextPath = 'http://localhost:8189/market';
+    const contextPath = 'http://localhost:8189/market/api/v1';
 
-    $scope.cartContentRequest = function () {
+    $scope.showCart = function () {
         $http({
-            url: contextPath + '/api/v1/cart',
+            url: contextPath + '/cart',
             method: 'GET'
-        })
-            .then(function (response) {
-                console.log(response.data);
-                $scope.cart = response.data;
-            });
+        }).then(function (response) {
+            $scope.Cart = response.data;
+        });
     };
+
+    $scope.addToCart = function (productId) {
+        $http.get(contextPath + '/cart/add/' + productId)
+            .then(function (response) {
+                $scope.showCart();
+            });
+    }
+
+    $scope.clearCart = function () {
+        $http.get(contextPath + '/cart/clear')
+            .then(function (response) {
+                $scope.showCart();
+            });
+    }
 
     $scope.decrementItem = function (productId) {
-        $http({
-            url: contextPath + '/api/v1/cart/cart/dec/' + productId,
-            method: 'GET'
-        })
-            .then(function (response) {
-                $scope.cartContentRequest();
-            });
-    };
+            $http.get(contextPath + '/cart/dec/' + productId)
+                .then(function (response) {
+                    $scope.showCart();
+                });
+        };
 
-    $scope.removeItem = function (productId) {
-        $http({
-            url: contextPath + '/api/v1/cart/cart/remove/' + productId,
-            method: 'GET'
-        })
-            .then(function (response) {
-                $scope.cartContentRequest();
-            });
-    };
+        $scope.removeItem = function (productId) {
+            $http.get(contextPath + '/cart/remove/' + productId)
+                .then(function (response) {
+                    $scope.showCart();
+                });
+        };
 
-    $scope.incrementItem = function (productId) {
-        $http({
-            url: contextPath + '/api/v1/cart/cart/add/' + productId,
-            method: 'GET'
-        })
-            .then(function (response) {
-                $scope.cartContentRequest();
-            });
-    };
 
-    $scope.cartContentRequest();
+
+    $scope.showCart();
 });

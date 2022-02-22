@@ -2,19 +2,13 @@ package ru.geekbrains.market.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.market.dto.ProductDto;
-import ru.geekbrains.market.exceptions.MarketError;
 import ru.geekbrains.market.exceptions.ResourceNotFoundException;
-import ru.geekbrains.market.model.Product;
 import ru.geekbrains.market.repositories.specifications.ProductSpecifications;
 import ru.geekbrains.market.services.ProductService;
-
-import java.util.Optional;
 
 
 @RestController

@@ -1,4 +1,4 @@
-angular.module('app', []).controller('storeController', function ($scope, $http) {
+angular.module('app').controller('storeController', function ($scope, $http) {
     const contextPath = 'http://localhost:8189/market/api/v1';
 
     $scope.fillTable = function (pageIndex = 1) {
@@ -36,11 +36,10 @@ angular.module('app', []).controller('storeController', function ($scope, $http)
         return arr;
     }
 
-
     $scope.addToCart = function (productId) {
         $http.get(contextPath + '/cart/add/' + productId)
             .then(function (response) {
-                $scope.showCart();
+//                $scope.showCart();
             });
     }
 

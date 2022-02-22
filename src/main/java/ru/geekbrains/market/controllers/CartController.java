@@ -28,4 +28,14 @@ public class CartController {
     public void clearCart() {
         cart.clear();
     }
+
+    @GetMapping("/dec/{id}")
+    public void decrementOrRemoveById(@PathVariable Long id) {
+        cart.decCart(id);
+    }
+
+    @GetMapping("/remove/{id}")
+    public void removeById(@PathVariable Long id) {
+        cart.removeCart(id);
+    }
 }
