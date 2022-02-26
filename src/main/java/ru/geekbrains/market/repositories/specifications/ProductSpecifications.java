@@ -22,6 +22,11 @@ public class ProductSpecifications {
                 criteriaBuilder.like(root.get("title"), String.format("%%%s%%", title));
     }
 
+    private static Specification<Product> categoryIdIs(Long categoryId) {
+        return (Specification<Product>) (root, criteriaQuery, criteriaBuilder) ->
+                criteriaBuilder.equal(root.get("category").get("id"), categoryId);
+    }
+
     public static Specification<Product> build(MultiValueMap<String, String> params) {
         Specification<Product> spec = Specification.where(null); //такое создание говорит, что если нет ограничений она не работает
         if (params.containsKey("min_price") && !params.getFirst("min_price").isBlank()) {
@@ -37,6 +42,12 @@ public class ProductSpecifications {
             String title = params.getFirst("title");
             spec = spec.and(ProductSpecifications.titleLike(title));
         }
+
+        if (params.containsKey("category_id") && !params.getFirst("category_id").isBlank()) {
+            Long categoryId = Long.parseLong(params.getFirst("category_id"));
+            spec = spec.and(ProductSpecifications.categoryIdIs(categoryId));
+        }
+
         return spec;
     }
 }

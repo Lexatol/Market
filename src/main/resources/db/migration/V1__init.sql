@@ -12,43 +12,55 @@ CREATE TABLE ROLES(
 
 CREATE TABLE USERS_ROLES(
     user_id                 bigint not null,
-    roles_id                int not null,
-    primary key (user_id, roles_id),
+    role_id                int not null,
+    primary key (user_id, role_id),
     foreign key (user_id) references users (id),
-    foreign key (roles_id) references roles(id)
+    foreign key (role_id) references roles(id)
 );
 
+CREATE TABLE CATEGORIES(
+    id                      bigserial primary key,
+    title                   varchar(100)
+);
 
-create table products (
+CREATE TABLE products (
     id                      bigserial primary key,
     title                   varchar(255),
     price                   int,
+    category_id             bigint references categories(id),
     created_at              timestamp default current_timestamp,
     updated_at              timestamp default current_timestamp
 );
 
-INSERT INTO ROLES (name) VALUES
+INSERT INTO ROLES (name)
+VALUES
 ('ROLE_USER'), ('ROLE_ADMIN'), ('MANAGER');
 
-INSERT INTO USERS(username, password, email) VALUES
-('user', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', 'user@gmail.com');
+INSERT INTO USERS(username, password, email)
+VALUES
+('user', '$2a$10$bHEU5neym35Z4dxIh6R.leRUe7pfRnvzC/iuvJWA1UoNUsXAnO3xm', 'user@gmail.com');
 
-INSERT INTO USERS_ROLES (user_id, roles_id) VALUES
+INSERT INTO USERS_ROLES (user_id, role_id)
+VALUES
 (1, 1), (1, 2);
 
+INSERT INTO CATEGORIES(title)
+VALUES
+('Bread'), ('Milk'), ('Cheese');
 
-insert into products (title, price)
-values
-    ('Bread', 24), ('Milk', 65), ('Cheese', 320),
-    ('Bread', 25), ('Milk', 66), ('Cheese', 330),
-    ('Bread', 26), ('Milk', 67), ('Cheese', 340),
-    ('Bread', 27), ('Milk', 68), ('Cheese', 350),
-    ('Bread', 28), ('Milk', 69), ('Cheese', 360),
-    ('Bread', 29), ('Milk', 70), ('Cheese', 370),
-    ('Bread', 30), ('Milk', 71), ('Cheese', 380),
-    ('Bread', 31), ('Milk', 72), ('Cheese', 390);
 
-create table carts (
+INSERT INTO products (title, price, category_id)
+VALUES
+    ('Bread1', 24, 1), ('Milk1', 65, 2), ('Cheese1', 320, 3),
+    ('Bread2', 25, 1), ('Milk2', 66, 2), ('Cheese2', 330, 3),
+    ('Bread3', 26, 1), ('Milk3', 67, 2), ('Cheese3', 340, 3),
+    ('Bread4', 27, 1), ('Milk4', 68, 2), ('Cheese4', 350, 3),
+    ('Bread5', 28, 1), ('Milk5', 69, 2), ('Cheese5', 360, 3),
+    ('Bread6', 29, 1), ('Milk6', 70, 2), ('Cheese6', 370, 3),
+    ('Bread7', 30, 1), ('Milk7', 71, 2), ('Cheese7', 380, 3),
+    ('Bread8', 31, 1), ('Milk8', 72, 2), ('Cheese8', 390, 3);
+
+CREATE TABLE carts (
     id                      bigserial primary key,
     users                   varchar(50),
     product_id              bigint,
@@ -56,7 +68,7 @@ create table carts (
     foreign key (product_id) references products(id)
 );
 
-create table order_items(
+CREATE TABLE order_items(
     id                      bigserial primary key,
     title                   varchar(255),
     quantity                int,

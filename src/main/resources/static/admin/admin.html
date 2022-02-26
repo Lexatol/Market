@@ -19,6 +19,7 @@
         <thead>
         <tr>
             <td>Название</td>
+            <td>Категория</td>
             <td>Цена</td>
             <td></td>
         </tr>
@@ -26,6 +27,7 @@
         <tbody>
         <tr ng-repeat="p in ProductsPage.content">
             <td>{{p.title}}</td>
+            <td>{{p.category}}</td>
             <td>{{p.price}}</td>
             <td>
                 <button class="btn btn-danger" ng-click="deleteProductById(p.id)">Удалить товар</button>

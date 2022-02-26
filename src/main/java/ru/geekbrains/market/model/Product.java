@@ -33,4 +33,8 @@ public class Product {
     @UpdateTimestamp
     private LocalDateTime updateAt;
 
+    @ManyToOne (fetch = FetchType.EAGER)
+    @JoinColumn (name = "category_id")
+    private Category category;
+
 }

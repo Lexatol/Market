@@ -9,6 +9,7 @@ angular.module('app').controller('storeController', function ($scope, $http) {
                 title: $scope.filter ? $scope.filter.title : null,
                 min_price: $scope.filter ? $scope.filter.min_price : null,
                 max_price: $scope.filter ? $scope.filter.max_price : null,
+                category_id: $scope.filter ? $scope.filter.category_id : null,
                 p: pageIndex
             }
         }).then(function (response) {
@@ -28,6 +29,16 @@ angular.module('app').controller('storeController', function ($scope, $http) {
         });
     };
 
+    $scope.getCategoriesList = function () {
+            $http({
+                url: contextPath + '/categories',
+                method: 'GET'
+            })
+                .then(function (response) {
+                    $scope.CategoriesList = response.data;
+                });
+        };
+
     $scope.generatePagesIndexes = function(startPage, endPage) {
         let arr = [];
         for (let i = startPage; i < endPage + 1; i++) {
@@ -44,4 +55,5 @@ angular.module('app').controller('storeController', function ($scope, $http) {
     }
 
     $scope.fillTable();
+     $scope.getCategoriesList();
 });
