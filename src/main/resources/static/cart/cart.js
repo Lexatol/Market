@@ -38,7 +38,18 @@ angular.module('app').controller('cartController', function ($scope, $http) {
                 });
         };
 
-
-
+    $scope.createOrder = function () {
+            $http({
+                url: contextPath + '/orders',
+                method: 'POST',
+                params: {
+                    address: $scope.ord ? $scope.ord.address : null
+                }
+            })
+                .then(function (response) {
+                    alert('Заказ оформлен');
+                    $scope.showCart();
+                });
+        }
     $scope.showCart();
 });

@@ -68,10 +68,21 @@ CREATE TABLE carts (
     foreign key (product_id) references products(id)
 );
 
-CREATE TABLE order_items(
+
+CREATE TABLE orders (
     id                      bigserial primary key,
-    title                   varchar(255),
-    quantity                int,
-    price_per_item          int,
-    price                   int
-)
+    user_id                 bigint references users(id),
+    price                   int,
+    address                 varchar(500)
+);
+
+CREATE TABLE order_items (
+    id                      bigserial primary key,
+    product_id              bigint references products(id),
+    order_id                bigint references orders(id),
+    price_per_product       int,
+    price                   int,
+    quantity                int
+);
+
+
