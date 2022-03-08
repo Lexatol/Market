@@ -14,12 +14,12 @@ import ru.geekbrains.market.dto.CartDto;
 public class CartController {
     private final Cart cart;
 
-    @GetMapping
+    @GetMapping(produces = "application/json")
     public CartDto getCart() {
         return new CartDto(cart);
     }
 
-    @GetMapping("/add/{id}")
+    @GetMapping(value = "/add/{id}", produces = "application/json")
     public void addToCart(@PathVariable Long id) {
         cart.addToCart(id);
     }
@@ -37,5 +37,15 @@ public class CartController {
     @GetMapping("/clear")
     public void clearCart() {
         cart.clear();
+    }
+
+    @GetMapping(value = "/dec/{id}", produces = "application/json")
+    public void decrementOrRemoveById(@PathVariable Long id) {
+        cart.decCart(id);
+    }
+
+    @GetMapping("/remove/{id}")
+    public void removeById(@PathVariable Long id) {
+        cart.removeCart(id);
     }
 }

@@ -16,27 +16,27 @@ import ru.geekbrains.market.services.ProductService;
 public class ProductController {
     private final ProductService productService;
 
-    @GetMapping
+    @GetMapping(produces = "application/json")
     public Page<ProductDto> findAllProducts(
             @RequestParam MultiValueMap<String, String> params,
-            @RequestParam (name = "p", defaultValue = "1") Integer page) {
+    {
         if (page < 1) {page = 1;}
         return productService.findAll(ProductSpecifications.build(params), page, 5);
     }
 
-    @GetMapping ("/{id}")
+    @GetMapping (value = "/{id}", produces = "application/json")
     public ProductDto findProductById(@PathVariable Long id) {
         return productService.findProductDtoById(id).orElseThrow(()-> new ResourceNotFoundException("Product" +
                 "with id " + id + " doesn't exists"));
     }
 
-    @PostMapping
+    @PostMapping(consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public ProductDto saveNewProduct(@RequestBody ProductDto productDto) {
         return productService.saveOrUpdate(productDto);
     }
 
-    @PutMapping
+    @PutMapping(consumes = "application/json", produces = "application/json")
     public ProductDto updateProduct(@RequestBody ProductDto productDto) {
         return productService.saveOrUpdate(productDto);
     }

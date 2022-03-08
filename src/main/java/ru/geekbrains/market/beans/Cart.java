@@ -2,7 +2,10 @@ package ru.geekbrains.market.beans;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
 import ru.geekbrains.market.exceptions.ResourceNotFoundException;
 import ru.geekbrains.market.model.OrderItem;
 import ru.geekbrains.market.model.Product;
@@ -10,10 +13,12 @@ import ru.geekbrains.market.services.ProductService;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Component
 @RequiredArgsConstructor
+@Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 @Data
 public class Cart {
     private List<OrderItem> items;
@@ -39,6 +44,33 @@ public class Cart {
         recalculate();
     }
 
+    public void decCart(Long id) {
+        Iterator<OrderItem> iter = items.iterator();
+        while(iter.hasNext()) {
+            OrderItem o = iter.next();
+            if (o.getProduct().getId().equals(id)) {
+                o.decrementQuantity();
+                if (o.getQuantity() == 0) {
+                    iter.remove();
+                }
+                recalculate();
+                return;
+            }
+        }
+    }
+
+    public void removeCart(Long id) {
+        Iterator<OrderItem> iter = items.iterator();
+        while(iter.hasNext()) {
+            OrderItem o = iter.next();
+            if (o.getProduct().getId().equals(id)) {
+                iter.remove();
+                recalculate();
+                return;
+            }
+        }
+    }
+
     public void clear() {
         items.clear();
         recalculate();
@@ -50,4 +82,5 @@ public class Cart {
             totalPrice += o.getPrice();
         }
     }
+
 }
