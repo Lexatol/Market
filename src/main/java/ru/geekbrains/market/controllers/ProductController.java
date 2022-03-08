@@ -10,7 +10,6 @@ import ru.geekbrains.market.exceptions.ResourceNotFoundException;
 import ru.geekbrains.market.repositories.specifications.ProductSpecifications;
 import ru.geekbrains.market.services.ProductService;
 
-
 @RestController
 @RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
@@ -20,8 +19,7 @@ public class ProductController {
     @GetMapping(produces = "application/json")
     public Page<ProductDto> findAllProducts(
             @RequestParam MultiValueMap<String, String> params,
-            @RequestParam (name = "p", defaultValue = "1") Integer page
-    ) {
+    {
         if (page < 1) {page = 1;}
         return productService.findAll(ProductSpecifications.build(params), page, 5);
     }
