@@ -1,0 +1,11 @@
+<div class="mb-3 text-center">
+    <form class="form-signin" ng-submit="tryToRegister()" style="max-width: 350px; padding: 15px; margin: 0 auto;">
+        <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
+        <input type="text" ng-model="user.username" id="inputUsername" class="form-control" placeholder="Имя пользователя" style="margin-bottom: 10px;" required="">
+        <input type="text" ng-model="user.email" id="inputEmail" class="form-control" placeholder="E-mail" style="margin-bottom: 10px;" required="">
+        <input type="password" ng-model="user.password" id="password" class="form-control" placeholder="Пароль" style="margin-bottom: 10px;" required="">
+        <input type="password" ng-model="user.confirmationPassword" id="confirmPassword" class="form-control" placeholder="Подтверждение пароля" style="margin-bottom: 10px;" required="">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Зарегистрироваться</button>
+        <p class="mt-5 mb-3 text-muted">© GeekBrains 2022</p>
+    </form>
+</div>

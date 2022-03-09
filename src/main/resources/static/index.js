@@ -26,7 +26,11 @@
             .when('/profile', {
                             templateUrl: 'profile/profile.html',
                             controller: 'profileController'
-                        })
+            })
+            .when('/register', {
+                            templateUrl: 'register/register.html',
+                            controller: 'registerController'
+            })
             .when('/cart', {
                 templateUrl: 'cart/cart.html',
                 controller: 'cartController'

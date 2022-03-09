@@ -6,4 +6,6 @@ import ru.geekbrains.market.model.Role;
 
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Integer> {
+
+    Role findRoleByName(String name);
 }
