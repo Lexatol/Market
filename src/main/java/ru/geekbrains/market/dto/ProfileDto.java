@@ -1,9 +1,11 @@
 package ru.geekbrains.market.dto;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.geekbrains.market.model.Profile;
 
 @Data
+@NoArgsConstructor
 public class ProfileDto {
     private Long id;
     private String username;
