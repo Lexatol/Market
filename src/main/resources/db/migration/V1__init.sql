@@ -18,6 +18,13 @@ CREATE TABLE USERS_ROLES(
     foreign key (role_id) references roles(id)
 );
 
+CREATE TABLE PROFILES(
+    id                      bigserial primary key,
+    user_id                 bigint,
+    hobbies                 varchar(1000),
+    foreign key (user_id) references users(id)
+);
+
 CREATE TABLE CATEGORIES(
     id                      bigserial primary key,
     title                   varchar(100)
@@ -43,6 +50,10 @@ VALUES
 INSERT INTO USERS_ROLES (user_id, role_id)
 VALUES
 (1, 1), (1, 2);
+
+INSERT INTO PROFILES(user_id, hobbies)
+VALUES
+(1, 'reading book');
 
 INSERT INTO CATEGORIES(title)
 VALUES
