@@ -18,7 +18,8 @@ public class ProductController {
 
     @GetMapping(produces = "application/json")
     public Page<ProductDto> findAllProducts(
-            @RequestParam MultiValueMap<String, String> params,
+            @RequestParam (defaultValue = "1", name = "p") Integer page,
+            @RequestParam MultiValueMap<String, String> params)
     {
         if (page < 1) {page = 1;}
         return productService.findAll(ProductSpecifications.build(params), page, 5);
