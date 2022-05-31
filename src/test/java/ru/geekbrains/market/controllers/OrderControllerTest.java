@@ -1,7 +1,7 @@
 package ru.geekbrains.market.controllers;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,15 +10,12 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.geekbrains.market.dto.OrderDto;
-import ru.geekbrains.market.dto.OrderItemDto;
 import ru.geekbrains.market.model.Order;
 import ru.geekbrains.market.model.OrderItem;
 import ru.geekbrains.market.model.Product;
 import ru.geekbrains.market.model.User;
-import ru.geekbrains.market.repositories.OrderRepository;
 import ru.geekbrains.market.services.OrderService;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -41,11 +38,13 @@ public class OrderControllerTest {
     @MockBean
     private OrderService orderService;
 
-    @Test
-    @WithMockUser(username = "user", authorities = "USER")
-    public void getAllOrderTest() throws Exception {
-        String name = "user";
+    private String name = "user";
+    private Order order;
+    private List<OrderDto> orderDtoList;
 
+
+    @BeforeEach
+    public void init() {
         User user = new User();
         user.setUsername(name);
 
@@ -57,12 +56,18 @@ public class OrderControllerTest {
         OrderItem orderItem = new OrderItem(product);
         List<OrderItem> orderItems = new ArrayList<>(Arrays.asList(orderItem));
 
-        Order order = new Order();
+
+        order = new Order();
         order.setUser(user);
         order.setItems(orderItems);
 
         OrderDto orderDto = new OrderDto(order);
-        List<OrderDto> orderDtoList = new ArrayList<>(Arrays.asList(orderDto));
+        orderDtoList = new ArrayList<>(Arrays.asList(orderDto));
+    }
+
+    @Test
+    @WithMockUser(username = "user", authorities = "USER")
+    public void getAllOrderTest() throws Exception {
 
         given(orderService.findAllUserOrderDto(name)).willReturn(orderDtoList);
 
