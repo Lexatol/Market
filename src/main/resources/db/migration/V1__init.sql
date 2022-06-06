@@ -71,15 +71,6 @@ VALUES
     ('Bread7', 30, 1), ('Milk7', 71, 2), ('Cheese7', 380, 3),
     ('Bread8', 31, 1), ('Milk8', 72, 2), ('Cheese8', 390, 3);
 
-CREATE TABLE carts (
-    id                      bigserial primary key,
-    users                   varchar(50),
-    product_id              bigint,
-    created_at              timestamp default current_timestamp,
-    foreign key (product_id) references products(id)
-);
-
-
 CREATE TABLE orders (
     id                      bigserial primary key,
     user_id                 bigint references users(id),

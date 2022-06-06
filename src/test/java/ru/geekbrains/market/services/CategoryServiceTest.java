@@ -5,13 +5,14 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import ru.geekbrains.market.model.Category;
 import ru.geekbrains.market.repositories.CategoryRepository;
-import ru.geekbrains.market.services.CategoryService;
 
 import java.util.List;
 
 @SpringBootTest
+@ActiveProfiles("h2")
 public class CategoryServiceTest {
 
     @Autowired

@@ -6,12 +6,14 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 import ru.geekbrains.market.model.User;
 import ru.geekbrains.market.repositories.UserRepository;
 
 import java.util.Optional;
 
 @SpringBootTest
+@ActiveProfiles("h2")
 public class UserServiceTest {
 
     @Autowired

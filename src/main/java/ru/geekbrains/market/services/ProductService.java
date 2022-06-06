@@ -15,6 +15,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
+    private final CategoryService categoryService;
 
     public Optional<Product> findProductById(Long id) {
         return productRepository.findById(id);
@@ -37,6 +38,7 @@ public class ProductService {
         }
         product.setTitle(productDto.getTitle());
         product.setPrice(productDto.getPrice());
+        product.setCategory(categoryService.findByTitle(productDto.getCategory()));
         product = productRepository.save(product);
         return new ProductDto(product);
     }

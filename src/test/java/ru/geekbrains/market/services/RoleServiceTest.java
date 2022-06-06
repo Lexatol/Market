@@ -6,10 +6,12 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 import ru.geekbrains.market.model.Role;
 import ru.geekbrains.market.repositories.RoleRepository;
 
 @SpringBootTest
+@ActiveProfiles("h2")
 public class RoleServiceTest {
 
     @Autowired

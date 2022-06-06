@@ -16,7 +16,7 @@ import java.util.List;
 public class CategoryController {
     private final CategoryService categoryService;
 
-    @GetMapping(produces = "application/json")
+    @GetMapping
     public List<Category> findAll() {
         return categoryService.findAll();
     }
